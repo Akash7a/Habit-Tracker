@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <h3>Life~Track</h3>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#history">History</a></li>
+                <li><a href="#streak">Streak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <div class="intro">
+            <h2>
+                <span>
+                    Habit Tracker
+                </span>
+                <span>
+                    Build consistency, one habit at a time
+                </span>
+            </h2>
+            <p> I’ve built a simple **Habit Tracker** using HTML, CSS, and JavaScript to stay consistent with my daily
+                goals. It helps me record habits, track streaks, and manage tasks linked to each habit — all in one
+                place. This is my way of improving discipline and making self-improvement measurable and fun. </p>
+        </div>
+        <div class="form_container">
+            <div class="habit_form_container">
+                <h2>Add a Habit</h2>
+                <form id="habit_form">
+                    <input type="text" required placeholder="Enter the habit..." id="habit_title">
+                    <input type="color" id="color_habit">
+
+                    <!-- frequency -->
+                    <label for="frequency">How often?</label>
+                    <select id="frequency" name="frequency">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <div id="timesWrapper">
+                        <label for="times">How many times per week?</label>
+                        <input placeholder="times per week" type="number" id="times" name="times" min="1" max="7">
+                    </div>
+                    <br>
+                    <button type="submit">Add Habit</button>
+                </form>
+            </div>
+            <div class="task_form_container">
+                <h2>Add a Task</h2>
+                <form id="task_form">
+                    <input type="text" required placeholder="Enter task title" id="task_title">
+                    <input type="text" placeholder="Enter task description" id=" task_description">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" id="dueDate">
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
+    </section>
+
+    <div class="ctrl">
+        <button id="show_active">Active Habits</button>
+        <button id="show_archived">Archived Habits</button>
+
+    </div>
+
+    <section class="show_container">
+        <div class="habit_container">
+            <h2>Your Habits Here</h2>
+        </div>
+        <div class="task_container">
+            <h2>Your Tasks Here</h2>
+        </div>
+    </section>
+    <footer>
+        <div class="footer_container">
+            <h3>Life~Track</h3>
+            <p>Build consistency, one habit at a time ✨</p>
+
+            <ul class="footer_links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#history">History</a></li>
+                <li><a href="#streak">Streak</a></li>
+            </ul>
+
+            <div class="socials">
+                <a href="https://github.com/akash7a" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/akash" target="_blank">LinkedIn</a>
+                <a href="mailto:akashkumar914a@gmail.com">Email</a>
+            </div>
+
+            <p class="copy">&copy; 2025 Life~Track. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- script -->
+    <script src="./script.js"></script>
+</body>
+
+</html>
