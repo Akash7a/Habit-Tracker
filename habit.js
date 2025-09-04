@@ -61,7 +61,7 @@ const renderHabitCard = (h, showArchived) => {
 
     const trackStreak = document.createElement("p");
     trackStreak.classList.add("track_streak");
-    trackStreak.textContent = showStreak(h);
+    trackStreak.textContent = showStreak(h) + "Completed";
 
     const progress = calculateProgress(h);
 
