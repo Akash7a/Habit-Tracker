@@ -59,6 +59,10 @@ const renderHabitCard = (h, showArchived) => {
     streak.classList.add("habit_streak");
     streak.textContent = `Streak: ${h.streak}`;
 
+    const trackStreak = document.createElement("p");
+    trackStreak.classList.add("track_streak");
+    trackStreak.textContent = showStreak(h);
+
     const progress = calculateProgress(h);
 
     const progressContainer = document.createElement("div");
@@ -76,6 +80,7 @@ const renderHabitCard = (h, showArchived) => {
     const progressText = document.createElement("p");
     progressText.textContent = `${progress}% completed`;
 
+    habit.appendChild(trackStreak);
     habit.appendChild(title);
     habit.appendChild(freq);
     habit.appendChild(streak);
@@ -156,7 +161,7 @@ const updateHabit = (habitId) => {
     }
     habitSubBtn.textContent = "Updating Habit...";
 
-    habitForm.scrollIntoView({ behavior: "smooth",block:"start" });
+    habitForm.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // ✅ archive habit
@@ -182,6 +187,7 @@ const maintainStreak = (id) => {
         return;
     }
 
+
     habit.streak += 1;
     habit.history.push({
         date: today,
@@ -192,6 +198,30 @@ const maintainStreak = (id) => {
     saveToLocalStorage();
     readHabit();
 };
+// track streak
+const showStreak = (habit) => {
+    let creationDate = new Date(habit.createdAt);
+    let nextWeek = new Date(creationDate);
+    nextWeek.setDate(creationDate.getDate() + 7)
+
+    let calculateStreak = 0;
+    for (let i = 0; i < 7; i++) {
+        let day = new Date(creationDate);
+        day.setDate(creationDate.getDate() + i);
+
+        let dayStr = new Date(day).toISOString().split("T")[0];
+
+        let found = habit.history.find(entry => entry.date === dayStr && entry.completed);
+
+        if (found) {
+            calculateStreak++
+        }
+    }
+    return `${calculateStreak}/7`;
+
+}
+
+
 
 // ✅ add habit
 habitForm.addEventListener("submit", (e) => {
@@ -236,7 +266,6 @@ habitForm.addEventListener("submit", (e) => {
         };
         data.push(habitData);
     }
-
 
     // reset form
     habitTitleElem.value = "";
