@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habit Tracker</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./tracker.css">
+    <link rel="stylesheet" href="./task.css">
 </head>
 
 <body>
@@ -45,6 +46,7 @@
                     <!-- frequency -->
                     <label for="frequency">How often?</label>
                     <select id="frequency" name="frequency">
+                        <option value="">Choose frequency</option>
                         <option value="daily">Daily</option>
                         <option value="weekly">Weekly</option>
                         <option value="custom">Custom</option>
@@ -54,7 +56,7 @@
                         <input placeholder="times per week" type="number" id="times" name="times" min="1" max="7">
                     </div>
                     <br>
-                    <button type="submit">Add Habit</button>
+                    <button type="submit" id="habit_sub_btn">Add Habit</button>
                 </form>
             </div>
             <div class="task_form_container">
@@ -105,7 +107,7 @@
     </footer>
 
     <!-- script -->
-    <script src="./script.js"></script>
+    <script src="./habit.js"></script>
 </body>
 
 </html>

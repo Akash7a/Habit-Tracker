@@ -11,8 +11,10 @@ const timesPerWeek = document.querySelector("#times");
 const habitContainer = document.querySelector(".habit_container");
 const showActiveHabits = document.querySelector("#show_active");
 const showArchivedHabits = document.querySelector("#show_archived");
+const habitSubBtn = document.querySelector("#habit_sub_btn");
 
 const data = localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : [];
+let isEditingId = null;
 
 const saveToLocalStorage = () => {
     localStorage.setItem("data", JSON.stringify(data));
@@ -81,7 +83,6 @@ const renderHabitCard = (h, showArchived) => {
     habit.appendChild(progressText);
     habit.appendChild(progressContainer);
 
-    // buttons last
     if (showArchived) {
         const restoreBtn = createButtons("♻️ Restore", "restore_btn", () => {
             h.archived = false;
@@ -92,8 +93,13 @@ const renderHabitCard = (h, showArchived) => {
     } else {
         const streakBtn = createButtons("⬆️", "streak_btn", () => maintainStreak(h.id));
         const archivedBtn = createButtons("⛔", "archive_btn", () => archiveHabits(h.id));
+        const removeBtn = createButtons("❌", "delete_btn", () => deleteHabit(h.id));
+        const updateBtn = createButtons("📝", "update_btn", () => updateHabit(h.id));
+
         habit.appendChild(streakBtn);
+        habit.appendChild(removeBtn);
         habit.appendChild(archivedBtn);
+        habit.appendChild(updateBtn)
     }
 
     return habit;
@@ -116,6 +122,42 @@ const readHabit = (showArchived = false) => {
         });
     }
 };
+// delete habit
+const deleteHabit = (habitId) => {
+    const updatedData = data.filter((h) => h.id !== habitId);
+    if (!updatedData) return;
+
+    data.length = 0;
+    data.push(...updatedData);
+
+    saveToLocalStorage()
+    readHabit();
+}
+
+// update habit
+const updateHabit = (habitId) => {
+    const habit = data.find((h) => h.id === habitId);
+
+    if (habit) {
+        isEditingId = habit.id;
+        habitTitleElem.value = habit.title;
+        habitColorElem.value = habit.color;
+
+        if (["daily", "weekly"].includes(habit.frequency)) {
+            habitFrequency.value = habit.frequency;
+            timesWrapper.classList.remove("visible");
+            timesPerWeek.value = "";
+        } else {
+            habitFrequency.value = "custom";
+            timesWrapper.classList.add("visible");
+            timesPerWeek.value = habit.frequency;
+        }
+
+    }
+    habitSubBtn.textContent = "Updating Habit...";
+
+    habitForm.scrollIntoView({ behavior: "smooth",block:"start" });
+}
 
 // ✅ archive habit
 const archiveHabits = (id) => {
@@ -166,23 +208,39 @@ habitForm.addEventListener("submit", (e) => {
         frequencyVal = customFreVal;
     }
 
-    const habitData = {
-        id: Date.now(),
-        title: titleVal,
-        color: colorVal,
-        frequency: frequencyVal,
-        history: [],
-        streak: 0,
-        createdAt: Date.now(),
-        updatedAt: null,
-        archived: false,
-    };
 
-    data.push(habitData);
+    if (isEditingId) {
+        const habit = data.find((h) => h.id === isEditingId);
+
+        if (habit) {
+            habit.title = habitTitleElem.value;
+            habit.color = habitColorElem.value;
+            habit.frequency = frequencyVal;
+            habit.updatedAt = Date.now();
+        }
+        saveToLocalStorage();
+        readHabit();
+        isEditingId = null;
+        habitSubBtn.textContent = "Add Habit";
+    } else {
+        const habitData = {
+            id: Date.now(),
+            title: titleVal,
+            color: colorVal,
+            frequency: frequencyVal,
+            history: [],
+            streak: 0,
+            createdAt: Date.now(),
+            updatedAt: null,
+            archived: false,
+        };
+        data.push(habitData);
+    }
+
 
     // reset form
     habitTitleElem.value = "";
-    habitColorElem.value = "";
+    habitColorElem.value = "#ffffff";
     habitFrequency.value = "";
     timesPerWeek.value = "";
     timesWrapper.classList.remove("visible");
