@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habit Tracker</title>
-    <link rel="stylesheet" href="./tracker.css">
-    <link rel="stylesheet" href="./task.css">
+    <link rel="stylesheet" href="./styles/tracker.css">
+    <link rel="stylesheet" href="./styles/task.css">
 </head>
 
 <body>
@@ -63,10 +63,10 @@
                 <h2>Add a Task</h2>
                 <form id="task_form">
                     <input type="text" required placeholder="Enter task title" id="task_title">
-                    <input type="text" placeholder="Enter task description" id=" task_description">
+                    <input type="text" placeholder="Enter task description" id="task_description">
                     <label for="dueDate">Due Date</label>
                     <input type="date" id="dueDate">
-                    <button type="submit">Add Task</button>
+                    <button type="submit" id="task_sub_btn">Add Task</button>
                 </form>
             </div>
     </section>
@@ -107,7 +107,9 @@
     </footer>
 
     <!-- script -->
-    <script src="./habit.js"></script>
+    <script type="module" src="./habit.js"></script>
+    <script type="module" src="./task.js"></script>
+    <script type="module" src="./storage.js"></script>
 </body>
 
 </html>

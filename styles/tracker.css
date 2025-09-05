@@ -328,11 +328,11 @@ input[type="number"]:focus {
     max-height: 200px;
     opacity: 1;
 }
-
-.habit {
+/* Common card styling for habit & task */
+.habit,
+.task {
     background: #fff;
     border: 2px solid #e5e7eb;
-    /* light gray border */
     border-radius: 12px;
     padding: 1rem 1.2rem;
     margin: 1rem auto;
@@ -340,7 +340,16 @@ input[type="number"]:focus {
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
+    width: 100%;
     max-width: 520px;
+}
+
+/* Hover effect same for both */
+.habit:hover,
+.task:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: #4f46e5;
 }
 
 .habit:hover {
@@ -390,7 +399,8 @@ input[type="number"]:focus {
     border: none;
 }
 
-.delete_btn,.update_btn {
+.delete_btn,
+.update_btn {
     position: absolute;
     top: 4px;
     font-size: 20px;
@@ -398,7 +408,8 @@ input[type="number"]:focus {
     border: 0;
     right: 70px;
 }
-.update_btn{
+
+.update_btn {
     right: 120px;
     font-size: 23px;
     top: 0;
